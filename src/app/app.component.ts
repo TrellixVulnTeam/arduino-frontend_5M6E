@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
     title = 'arduino-frontend';
     public arduino: any;
     public status: any;
+    public currentCoast: number = 0;
 
     private ngUnsubscribe = new Subject();
 
@@ -26,7 +27,7 @@ export class AppComponent implements OnInit {
     private getDados() {
         this.appService.getLogs().pipe(takeUntil(this.ngUnsubscribe)).subscribe((val: any) => {
             this.arduino = val.at(-1);
-            console.log(this.arduino);
+            this.currentCoast = this.arduino.voltage * this.arduino.chain;
         });
     }
 
