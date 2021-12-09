@@ -9,7 +9,9 @@ import { AppService } from './app.service';
 })
 export class AppComponent implements OnInit {
     title = 'arduino-frontend';
-    
+    public arduino: any;
+    public status: any;
+
     private ngUnsubscribe = new Subject();
 
     constructor(
@@ -18,13 +20,17 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.getDados();
+        this.getStatus();
     }
 
     private getDados() {
-        this.appService.getLogs().pipe(takeUntil(this.ngUnsubscribe)).subscribe((val: any) => { console.log(val) });
+        this.appService.getLogs().pipe(takeUntil(this.ngUnsubscribe)).subscribe((val: any) => {
+            this.arduino = val.at(-1);
+            console.log(this.arduino);
+        });
     }
 
     private getStatus() {
-        this.appService.getStatus().pipe(takeUntil(this.ngUnsubscribe)).subscribe((val: any) => { console.log(val) });
+        this.appService.getStatus().pipe(takeUntil(this.ngUnsubscribe)).subscribe((val: any) => { this.status = val.at(-1); });
     }
 }
