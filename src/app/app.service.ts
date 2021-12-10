@@ -20,4 +20,11 @@ export class AppService {
         let url = `https://energy-consumption-catolica.herokuapp.com/api/system/`;   
         return this.http.get<any>(url);
     }
+
+    public getCoast(): Observable<any> {
+        let url = `https://energy-consumption-catolica.herokuapp.com/api/consumption/calculate`;   
+        return this.http.get<any>(url);
+    }
+
+    
 }
